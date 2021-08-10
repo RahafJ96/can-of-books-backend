@@ -5,7 +5,7 @@ const cors = require('cors');
 const mongoose = require('mongoose')
 require('dotenv').config();
 
-const books = require('./BookSchema')
+const bookCollection = require('./BookModel')
 
 // const jwt = require('jsonwebtoken');
 // const jwksClient = require('jwks-rsa');
@@ -16,12 +16,12 @@ server.use(cors());
 const PORT = process.env.PORT || 3010;
 
 //MongoDB
-mongoose.connect('mongodb://localhost:27017/bookx', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://localhost:27017/booktest', { useNewUrlParser: true, useUnifiedTopology: true });
 
 
-server.get('/', homeHandler);
 
 //Handlers
+server.get('/', homeHandler);
 function homeHandler(req, res) {
   res.send('Home Route');
 }
@@ -29,15 +29,15 @@ function homeHandler(req, res) {
 server.get('/books', getBooksHandler);
 
 function getBooksHandler(req, res) {
-  const { email } = req.query;
+  const  email  = req.query.email;
 
   // search
-  books.find({ email: email }, function (err, booksData) {
+  bookCollection.find({ email: email }, function (err, booksData) {
     if (err) {
       res.send('Error');
     }
     else {
-      res.json(booksData);
+      res.send(booksData);
     }
   })
 }
