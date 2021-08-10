@@ -16,7 +16,7 @@ server.use(cors());
 const PORT = process.env.PORT || 3010;
 
 //MongoDB
-mongoose.connect('mongodb://localhost:27017/booktest', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(`${process.env.SERVER_URL}/xbook`, { useNewUrlParser: true, useUnifiedTopology: true });
 
 
 
@@ -37,7 +37,7 @@ function getBooksHandler(req, res) {
       res.send('Error');
     }
     else {
-      res.send(booksData);
+      res.send(booksData[0].books);
     }
   })
 }
