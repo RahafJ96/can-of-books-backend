@@ -66,7 +66,7 @@ function seedingData() {
     //     email: 'rahafjazz@gmail.com',
     // })
 
-    console.log(rahaf.books);
+    console.log(rahaf);
 
     rahaf.save();
     abdelqader.save();
