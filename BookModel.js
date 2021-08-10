@@ -8,7 +8,6 @@ const userDB = new mongoose.Schema({
     books: [bookSchema]
 });
 const bookCollection = mongoose.model('books', userDB);
-mongoose.set('useCreateIndex', true);
 
 
 function seedingData() {
