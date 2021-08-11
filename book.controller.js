@@ -12,28 +12,30 @@ function getBooksHandler(req, res) {
       res.send(booksData[0].books);
     }
   })
+  // console.log(booksData[0].books);
 }
 
-const addBooksHandler = async (req, res) => {
+function addBooksHandler(req, res){
 
   // Restuctuting Assignment
     const {email,title,description,status,img_url} = req.body;
-    console.log(req.body);
+    // console.log(req.body);
 
-    bookCollection.find({email:email}, (err, resultData) =>{
+    bookCollection.find({email:email}, (err, booksData) =>{
       if(err){
         res.send('not working')
       }else{
-        resultData[0].books.push({
+        booksData[0].books.push({
           title:title,
           description:description,
           status:status,
           img_url:img_url
 
         })
-        resultData[0].save();
-        res.send(resultData[0].books)
+        booksData[0].save();
+        res.send(booksData[0].books)
       }
+      console.log(booksData);
 
     })
 
@@ -50,28 +52,26 @@ const addBooksHandler = async (req, res) => {
 
 
 const deleteBooksHandler = async (req,res) => {
-    // console.log(idx);
-    // const idx=req.params.index;
-    // // const bookId = req.params.bookId;
-    // const {email} = req.query;
-    // bookCollection.find({email:email },(err,resultData) => {
-    //   console.log(resultData[0]);
-    // })
+  // console.log('delete',booksData[0].books);
 
-    const index = req.params.index;
+    const id = req.params.id;
     const {email} = req.query;
     bookCollection.find({email : email}, (err,resultData) =>{
-        const newBookArr = resultData[0].filter((book,idx) => {
-            console.log(typeof idx, typeof index)
-            if(idx != index)
-            {
-                return true;
+        // const newBookArr = resultData[0].books.filter((book,idx) => {
+            // console.log(typeof idx, typeof index)
+            if(err){
+              "error"
             }
-        })
-        console.log('new array : ', newBookArr)
-        resultData[0].books = newBookArr;
-        resultData[0].save();
-        res.send(resultData[0].books);
+           else{
+             const newBooks =resultData[0].books.filter((book,index)=> index != id);
+
+            //  console.log('new array : ', newBookArr)
+             resultData[0].books = newBooks;
+             resultData[0].save();
+             res.send(resultData[0].books);
+           }
+        // }
+    // )
     })
 
 }
