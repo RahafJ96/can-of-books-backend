@@ -36,11 +36,11 @@ function homeHandler(req, res) {
 // https://localhost:3010/books?email=rahafjazz@gmail.com
 server.get('/books', getBooksHandler);
 
-// https://localhost:3010/addbooks?email=rahafjazz@gmail.com
-server.post('/addbooks',addBooksHandler);
+// https://localhost:3010/books?email=rahafjazz@gmail.com
+server.post('/books',addBooksHandler);
 
-// https://localhost:3010/addbooks?email=rahafjazz@gmail.com
-server.delete('/deletebooks/:book_id',deleteBooksHandler);
+// https://localhost:3010/books?email=rahafjazz@gmail.com
+server.delete('/books/:id',deleteBooksHandler);
 
 
 server.listen(PORT, () => console.log(`listening on ${PORT}`));
