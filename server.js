@@ -5,18 +5,24 @@ const cors = require('cors');
 const mongoose = require('mongoose')
 require('dotenv').config();
 
-const bookCollection = require('./BookModel')
+// const bookCollection = require('./BookModel')
+const {
+  getBooksHandler,
+  addBooksHandler,
+  deleteBooksHandler
+} = require('./book.controller')
 
 // const jwt = require('jsonwebtoken');
 // const jwksClient = require('jwks-rsa');
 
 const server = express();
 server.use(cors());
+server.use(express.json());
 
 const PORT = process.env.PORT || 3010;
 
 //MongoDB
-mongoose.connect(`${process.env.SERVER_URL}/xbook`, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(`mongodb://localhost:27017/books`, { useNewUrlParser: true, useUnifiedTopology: true });
 
 
 
@@ -26,22 +32,15 @@ function homeHandler(req, res) {
   res.send('Home Route');
 }
 
+
+// https://localhost:3010/books?email=rahafjazz@gmail.com
 server.get('/books', getBooksHandler);
 
-function getBooksHandler(req, res) {
-  const  email  = req.query.email;
+// https://localhost:3010/addbooks?email=rahafjazz@gmail.com
+server.post('/addbooks',addBooksHandler);
 
-  // search
-  bookCollection.find({ email: email }, function (err, booksData) {
-    if (err) {
-      res.send('Error');
-    }
-    else {
-      res.send(booksData[0].books);
-    }
-  })
-}
-
+// https://localhost:3010/addbooks?email=rahafjazz@gmail.com
+server.delete('/addbooks/:book_id',deleteBooksHandler);
 
 
 server.listen(PORT, () => console.log(`listening on ${PORT}`));
