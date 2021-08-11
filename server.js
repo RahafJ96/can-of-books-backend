@@ -40,7 +40,7 @@ server.get('/books', getBooksHandler);
 server.post('/addbooks',addBooksHandler);
 
 // https://localhost:3010/addbooks?email=rahafjazz@gmail.com
-server.delete('/addbooks/:book_id',deleteBooksHandler);
+server.delete('/deletebooks/:book_id',deleteBooksHandler);
 
 
 server.listen(PORT, () => console.log(`listening on ${PORT}`));

@@ -32,7 +32,7 @@ const addBooksHandler = async (req, res) => {
 
         })
         resultData[0].save();
-        res.send(resultData[0],books)
+        res.send(resultData[0].books)
       }
 
     })
@@ -51,15 +51,29 @@ const addBooksHandler = async (req, res) => {
 
 const deleteBooksHandler = async (req,res) => {
     // console.log(idx);
-    const idx=req.params.index;
-    // const bookId = req.params.bookId;
-    const {email} = req.query;
-    bookCollection.find({email:email },(err,resultData) => {
-      console.log(resultData[0]);
-    })
-    // bookCollection.deleteOne({ _id: bookId }, (error, resultData) => {
-    //     res.send(deleted);
+    // const idx=req.params.index;
+    // // const bookId = req.params.bookId;
+    // const {email} = req.query;
+    // bookCollection.find({email:email },(err,resultData) => {
+    //   console.log(resultData[0]);
     // })
+
+    const index = req.params.index;
+    const {email} = req.query;
+    bookCollection.find({email : email}, (err,resultData) =>{
+        const newBookArr = resultData[0].filter((book,idx) => {
+            console.log(typeof idx, typeof index)
+            if(idx != index)
+            {
+                return true;
+            }
+        })
+        console.log('new array : ', newBookArr)
+        resultData[0].books = newBookArr;
+        resultData[0].save();
+        res.send(resultData[0].books);
+    })
+
 }
 
 
