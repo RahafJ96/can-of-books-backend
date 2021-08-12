@@ -76,11 +76,26 @@ const deleteBooksHandler = async (req,res) => {
 
 }
 
+const updateBookHandler = async (req, res) =>{
+  const index = req.params.index;
+  const {email} = req.body;
+  bookCollection.findOne({email},(err,resultData) => {
+      console.log('findOne: ' ,resultData);
+      resultData.cats.splice(index,1,{
+          email: email,
+      })
+      resultData.save();
+      res.send(resultData.books);
+  })
+}
+
+
 
 
 
 module.exports = {
     getBooksHandler,
     addBooksHandler,
-    deleteBooksHandler
+    deleteBooksHandler,
+    updateBookHandler,
 }

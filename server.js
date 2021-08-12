@@ -9,7 +9,8 @@ require('dotenv').config();
 const {
   getBooksHandler,
   addBooksHandler,
-  deleteBooksHandler
+  deleteBooksHandler,
+  updateBookHandler,
 } = require('./book.controller')
 
 // const jwt = require('jsonwebtoken');
@@ -22,7 +23,7 @@ server.use(express.json());
 const PORT = process.env.PORT || 3010;
 
 //MongoDB
-mongoose.connect(`mongodb://localhost:27017/books`, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.MONGO, { useNewUrlParser: true, useUnifiedTopology: true });
 
 
 
@@ -41,6 +42,9 @@ server.post('/books',addBooksHandler);
 
 // https://localhost:3010/books?email=rahafjazz@gmail.com
 server.delete('/books/:id',deleteBooksHandler);
+
+// https://localhost:3010/books?email=rahafjazz@gmail.com
+server.put('/updateCat/:id',updateBookHandler);
 
 
 server.listen(PORT, () => console.log(`listening on ${PORT}`));
