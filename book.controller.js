@@ -100,7 +100,7 @@ const updateBookHandler = async (req, res) =>{
     img_url: img_url,
   } ,{new: true},
   (err,data) =>{
-    res.json(data);
+    res.json(data[0]);
   }
     // console.log('findOne: ' ,booksData);
     // booksData.books.splice(id,1,{

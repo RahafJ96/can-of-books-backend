@@ -70,5 +70,5 @@ function seedingData() {
     rahaf.save();
     abdelqader.save();
 }
-seedingData();
+// seedingData();
 module.exports = bookCollection;
