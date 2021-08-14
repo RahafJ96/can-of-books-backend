@@ -77,22 +77,41 @@ const deleteBooksHandler = async (req,res) => {
 }
 
 const updateBookHandler = async (req, res) =>{
-  const index = req.params.index;
-  const {email} = req.body;
-  bookCollection.findOne({email},(err,resultData) => {
-      console.log('findOne: ' ,resultData);
-      resultData.cats.splice(index,1,{
-          email: email,
-      })
-      resultData.save();
-      res.send(resultData.books);
-  })
+  const id = req.params.id;
+  const {email, title , description , status,img_url:img_url} = req.body;
+  console.log(id);
+
+  // bookCollection.findOne({email:email}, (err, booksData) => {
+  //     console.log('findOne: ' ,booksData);
+  //     booksData.books.splice(id,1,{
+        // title : title,
+        // description : description,
+        // status : status,
+  //     })
+  //     booksData.save();
+  //     res.send(booksData.books);
+  // })
+
+  bookCollection.findByIdAndUpdate({_id:id},{       
+    email:email,
+    title : title,
+    description : description,
+    status : status,
+    img_url: img_url,
+  } ,{new: true},
+  (err,data) =>{
+    res.json(data[0]);
+  }
+    // console.log('findOne: ' ,booksData);
+    // booksData.books.splice(id,1,{
+    //   title : title,
+    //   description : description,
+    //   status : status,
+    // })
+    // booksData.save();
+    // res.send(booksData.books);
+  )
 }
-
-
-
-
-
 module.exports = {
     getBooksHandler,
     addBooksHandler,

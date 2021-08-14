@@ -7,7 +7,7 @@ const userDB = new mongoose.Schema({
     email: { type: String },
     books: [bookSchema]
 });
-const bookCollection = mongoose.model('books', userDB);
+const bookCollection = mongoose.model('bookLibrary', userDB);
 
 
 function seedingData() {
@@ -65,10 +65,10 @@ function seedingData() {
     //     email: 'rahafjazz@gmail.com',
     // })
 
-    console.log(rahaf);
+    // console.log(rahaf);k
 
     rahaf.save();
     abdelqader.save();
 }
-seedingData();
+// seedingData();
 module.exports = bookCollection;
